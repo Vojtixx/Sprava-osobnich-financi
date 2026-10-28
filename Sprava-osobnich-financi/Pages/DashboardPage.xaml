@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Sprava_osobnich_financi.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:Sprava_osobnich_financi.Models"
+    xmlns:services="clr-namespace:Sprava_osobnich_financi.Services"
+    Title="Přehled"
+    Shell.NavBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+            <Grid
+                x:Name="DashboardLayout"
+                Padding="16,24,16,104"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="16"
+                MaximumWidthRequest="1100"
+                RowDefinitions="Auto,Auto,Auto"
+                RowSpacing="16">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="AdaptiveStates">
+                            <VisualState x:Name="Narrow">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter TargetName="OverviewPanel" Property="Grid.ColumnSpan" Value="2" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.Row" Value="2" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.Column" Value="0" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.ColumnSpan" Value="2" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Wide">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="600" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter TargetName="OverviewPanel" Property="Grid.ColumnSpan" Value="1" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.Row" Value="1" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.Column" Value="1" />
+                                    <Setter TargetName="TransactionsPanel" Property="Grid.ColumnSpan" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+                <Grid
+                    Grid.ColumnSpan="2"
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="12">
+                    <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                        <Label
+                            x:Name="GreetingLabel"
+                            Style="{StaticResource BodyMedium}"
+                            Text="Dobrý den 👋" />
+                        <Label
+                            SemanticProperties.HeadingLevel="Level1"
+                            Style="{StaticResource HeadlineSmall}"
+                            Text="Moje finance" />
+                    </VerticalStackLayout>
+
+                    <Border
+                        Grid.Column="1"
+                        BackgroundColor="{StaticResource BadgePurple}"
+                        SemanticProperties.Description="Otevřít nastavení účtu"
+                        StrokeShape="RoundRectangle 22"
+                        Style="{StaticResource IconBadge}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProfileTapped" />
+                        </Border.GestureRecognizers>
+                        <Label
+                            FontFamily="OpenSansSemibold"
+                            FontSize="15"
+                            HorizontalOptions="Center"
+                            Text="VŘ"
+                            TextColor="{StaticResource White}"
+                            VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+                <VerticalStackLayout
+                    x:Name="OverviewPanel"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Spacing="16">
+                    <Border Style="{StaticResource HeroCard}">
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="4">
+                            <Label Style="{StaticResource HeroLabel}" Text="Celkový zůstatek" />
+                            <Label
+                                x:Name="BalanceLabel"
+                                Grid.Row="1"
+                                Style="{StaticResource HeroAmount}"
+                                Text="48 250 Kč" />
+                            <Border
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                BackgroundColor="{StaticResource HeroChip}"
+                                Style="{StaticResource IconBadge}"
+                                VerticalOptions="Start">
+                                <Image Source="ic_wallet.png" />
+                            </Border>
+                            <Border
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Margin="0,8,0,0"
+                                Padding="10,4"
+                                BackgroundColor="{StaticResource HeroChip}"
+                                HorizontalOptions="Start"
+                                StrokeShape="RoundRectangle 8">
+                                <Label
+                                    x:Name="BalanceTrendLabel"
+                                    FontFamily="OpenSansSemibold"
+                                    FontSize="12"
+                                    Text="↑ +4,2 % oproti minulému měsíci"
+                                    TextColor="{StaticResource OnHero}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="12"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="12">
+                        <Border Style="{StaticResource Card}">
+                            <Grid
+                                ColumnDefinitions="44,*"
+                                ColumnSpacing="12"
+                                RowDefinitions="Auto,Auto">
+                                <Border
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="{StaticResource BadgeGreen}"
+                                    Style="{StaticResource IconBadge}">
+                                    <Image Source="ic_income.png" />
+                                </Border>
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodySmall}"
+                                    Text="Příjmy" />
+                                <Label
+                                    x:Name="IncomeLabel"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleMedium}"
+                                    Text="38 500 Kč" />
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Column="1" Style="{StaticResource Card}">
+                            <Grid
+                                ColumnDefinitions="44,*"
+                                ColumnSpacing="12"
+                                RowDefinitions="Auto,Auto">
+                                <Border
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="{StaticResource BadgeRed}"
+                                    Style="{StaticResource IconBadge}">
+                                    <Image Source="ic_expense.png" />
+                                </Border>
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodySmall}"
+                                    Text="Výdaje" />
+                                <Label
+                                    x:Name="ExpenseLabel"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleMedium}"
+                                    Text="20 058 Kč" />
+                            </Grid>
+                        </Border>
+
+                        <Border Grid.Row="1" Style="{StaticResource Card}">
+                            <Grid
+                                ColumnDefinitions="44,*"
+                                ColumnSpacing="12"
+                                RowDefinitions="Auto,Auto">
+                                <Border
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="{StaticResource BadgeTeal}"
+                                    Style="{StaticResource IconBadge}">
+                                    <Image Source="ic_savings.png" />
+                                </Border>
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodySmall}"
+                                    Text="Ušetřeno" />
+                                <Label
+                                    x:Name="SavingsLabel"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleMedium}"
+                                    Text="18 442 Kč" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource Card}">
+                            <Grid
+                                ColumnDefinitions="44,*"
+                                ColumnSpacing="12"
+                                RowDefinitions="Auto,Auto">
+                                <Border
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="{StaticResource BadgeAmber}"
+                                    Style="{StaticResource IconBadge}">
+                                    <Image Source="ic_list.png" />
+                                </Border>
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodySmall}"
+                                    Text="Pravidelné" />
+                                <Label
+                                    x:Name="RecurringLabel"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Style="{StaticResource TitleMedium}"
+                                    Text="16 659 Kč" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Style="{StaticResource TitleMedium}" Text="Měsíční rozpočet" />
+                                    <Label Style="{StaticResource BodySmall}" Text="Limit výdajů na tento měsíc" />
+                                </VerticalStackLayout>
+                                <Border Grid.Column="1" Style="{StaticResource StatusChip}">
+                                    <Label
+                                        x:Name="BudgetPercentLabel"
+                                        Style="{StaticResource StatusChipText}"
+                                        Text="80 %" />
+                                </Border>
+                            </Grid>
+
+                            <ProgressBar
+                                x:Name="BudgetProgressBar"
+                                Progress="0.8"
+                                ScaleY="2" />
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <Label
+                                    x:Name="BudgetValueLabel"
+                                    Style="{StaticResource LabelLarge}"
+                                    Text="20 058 Kč z 25 000 Kč" />
+                                <Label
+                                    x:Name="BudgetRemainingLabel"
+                                    Grid.Column="1"
+                                    Style="{StaticResource BodySmall}"
+                                    Text="zbývá 4 942 Kč"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Style="{StaticResource TitleMedium}" Text="Rychlé akce" />
+                            <FlexLayout
+                                AlignItems="Center"
+                                Direction="Row"
+                                JustifyContent="Start"
+                                Wrap="Wrap">
+                                <Button
+                                    Margin="0,0,8,8"
+                                    Clicked="OnAddIncomeClicked"
+                                    HeightRequest="40"
+                                    Padding="16,0"
+                                    Style="{StaticResource TonalButton}"
+                                    Text="+ Příjem" />
+                                <Button
+                                    Margin="0,0,8,8"
+                                    Clicked="OnAddExpenseClicked"
+                                    HeightRequest="40"
+                                    Padding="16,0"
+                                    Style="{StaticResource TonalButton}"
+                                    Text="− Výdaj" />
+                                <Button
+                                    Margin="0,0,8,8"
+                                    Clicked="OnOpenRatesClicked"
+                                    HeightRequest="40"
+                                    Padding="16,0"
+                                    Style="{StaticResource OutlinedButton}"
+                                    Text="Kurzy měn" />
+                            </FlexLayout>
+
+                            <BoxView Style="{StaticResource Divider}" />
+
+                            <Label Style="{StaticResource LabelMedium}" Text="Filtrovat seznam" />
+                            <FlexLayout
+                                AlignItems="Center"
+                                Direction="Row"
+                                JustifyContent="Start"
+                                Wrap="Wrap">
+                                <Button
+                                    x:Name="FilterAllButton"
+                                    Margin="0,0,8,8"
+                                    Clicked="OnFilterAllClicked"
+                                    Style="{StaticResource ChipButtonSelected}"
+                                    Text="Vše" />
+                                <Button
+                                    x:Name="FilterIncomeButton"
+                                    Margin="0,0,8,8"
+                                    Clicked="OnFilterIncomeClicked"
+                                    Style="{StaticResource ChipButton}"
+                                    Text="Příjmy" />
+                                <Button
+                                    x:Name="FilterExpenseButton"
+                                    Margin="0,0,8,8"
+                                    Clicked="OnFilterExpenseClicked"
+                                    Style="{StaticResource ChipButton}"
+                                    Text="Výdaje" />
+                                <HorizontalStackLayout Margin="0,0,16,8" Spacing="0">
+                                    <CheckBox
+                                        x:Name="RecurringOnlyCheckBox"
+                                        CheckedChanged="OnRecurringOnlyCheckedChanged"
+                                        VerticalOptions="Center" />
+                                    <Label Text="Jen pravidelné" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="0,0,0,8" Spacing="8">
+                                    <Switch
+                                        x:Name="HideAmountsSwitch"
+                                        Toggled="OnHideAmountsToggled"
+                                        VerticalOptions="Center" />
+                                    <Label Text="Skrýt částky" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    x:Name="TransactionsPanel"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Spacing="8">
+                    <Grid
+                        Margin="4,0"
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+                        <Label
+                            SemanticProperties.HeadingLevel="Level2"
+                            Style="{StaticResource TitleMedium}"
+                            Text="Poslední transakce"
+                            VerticalOptions="Center" />
+                        <Label
+                            x:Name="TransactionCountLabel"
+                            Grid.Column="1"
+                            Style="{StaticResource BodySmall}"
+                            Text="7 záznamů"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <VerticalStackLayout
+                        x:Name="TransactionsList"
+                        BindableLayout.ItemsSource="{x:Static services:TransactionStore.Transactions}"
+                        Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:Transaction">
+                                <Border Style="{StaticResource ListItemCard}">
+                                    <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12">
+                                        <Border BackgroundColor="{Binding CategoryColor}" Style="{StaticResource IconBadge}">
+                                            <Image Source="{Binding IconSource}" />
+                                        </Border>
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="2"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Style="{StaticResource TitleSmall}"
+                                                Text="{Binding Title}" />
+                                            <Label Style="{StaticResource BodySmall}" Text="{Binding Subtitle}" />
+                                        </VerticalStackLayout>
+
+                                        <VerticalStackLayout
+                                            Grid.Column="2"
+                                            Spacing="4"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                HorizontalOptions="End"
+                                                Style="{StaticResource AmountText}"
+                                                Text="{Binding AmountText}">
+                                                <Label.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding IsIncome}"
+                                                        TargetType="Label"
+                                                        Value="True">
+                                                        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource IncomeLight}, Dark={StaticResource IncomeDark}}" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Border
+                                                Padding="6,2"
+                                                HorizontalOptions="End"
+                                                IsVisible="{Binding IsRecurring}"
+                                                Style="{StaticResource StatusChip}">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{StaticResource StatusChipText}"
+                                                    Text="Pravidelná" />
+                                            </Border>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                        <BindableLayout.EmptyView>
+                            <Border Style="{StaticResource CardOutlined}">
+                                <Label
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource BodyMedium}"
+                                    Text="Žádná transakce neodpovídá filtru." />
+                            </Border>
+                        </BindableLayout.EmptyView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+        <Button
+            Margin="16"
+            Clicked="OnAddTransactionClicked"
+            HorizontalOptions="End"
+            SemanticProperties.Hint="Otevře formulář pro přidání transakce"
+            Style="{StaticResource FabButton}"
+            Text="+  Nová transakce"
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>

@@ -3,12 +3,26 @@
     x:Class="Sprava_osobnich_financi.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Sprava_osobnich_financi"
-    Title="Sprava_osobnich_financi">
+    xmlns:pages="clr-namespace:Sprava_osobnich_financi.Pages"
+    Title="Správa financí"
+    Shell.FlyoutBehavior="Disabled">
+    <TabBar>
+        <ShellContent
+            Title="Přehled"
+            Icon="tab_home.png"
+            Route="DashboardTab"
+            ContentTemplate="{DataTemplate pages:DashboardPage}" />
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        <ShellContent
+            Title="Kurzy"
+            Icon="tab_rates.png"
+            Route="ExchangeRatesTab"
+            ContentTemplate="{DataTemplate pages:ExchangeRatesPage}" />
 
+        <ShellContent
+            Title="Nastavení"
+            Icon="tab_settings.png"
+            Route="SettingsTab"
+            ContentTemplate="{DataTemplate pages:Settings}" />
+    </TabBar>
 </Shell>

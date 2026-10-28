@@ -1,45 +1,116 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="PrimaryLight">#006C4C</Color>
+    <Color x:Key="OnPrimaryLight">#FFFFFF</Color>
+    <Color x:Key="PrimaryContainerLight">#89F8C7</Color>
+    <Color x:Key="OnPrimaryContainerLight">#002114</Color>
 
-    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+    <Color x:Key="PrimaryDark">#6CDBAC</Color>
+    <Color x:Key="OnPrimaryDark">#003826</Color>
+    <Color x:Key="PrimaryContainerDark">#005138</Color>
+    <Color x:Key="OnPrimaryContainerDark">#89F8C7</Color>
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="SecondaryLight">#4D6357</Color>
+    <Color x:Key="OnSecondaryLight">#FFFFFF</Color>
+    <Color x:Key="SecondaryContainerLight">#CFE9D9</Color>
+    <Color x:Key="OnSecondaryContainerLight">#092016</Color>
 
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
+    <Color x:Key="SecondaryDark">#B3CCBE</Color>
+    <Color x:Key="OnSecondaryDark">#1F352A</Color>
+    <Color x:Key="SecondaryContainerDark">#354B40</Color>
+    <Color x:Key="OnSecondaryContainerDark">#CFE9D9</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
+    <Color x:Key="TertiaryLight">#3D6373</Color>
+    <Color x:Key="OnTertiaryLight">#FFFFFF</Color>
+    <Color x:Key="TertiaryContainerLight">#C1E8FB</Color>
+    <Color x:Key="OnTertiaryContainerLight">#001F29</Color>
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <Color x:Key="TertiaryDark">#A5CCDF</Color>
+    <Color x:Key="OnTertiaryDark">#073543</Color>
+    <Color x:Key="TertiaryContainerDark">#244C5B</Color>
+    <Color x:Key="OnTertiaryContainerDark">#C1E8FB</Color>
 
-    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
-    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
-    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
-    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
-    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
-    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
-    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
-    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+    <Color x:Key="ErrorLight">#BA1A1A</Color>
+    <Color x:Key="OnErrorLight">#FFFFFF</Color>
+    <Color x:Key="ErrorContainerLight">#FFDAD6</Color>
+    <Color x:Key="OnErrorContainerLight">#410002</Color>
+
+    <Color x:Key="ErrorDark">#FFB4AB</Color>
+    <Color x:Key="OnErrorDark">#690005</Color>
+    <Color x:Key="ErrorContainerDark">#93000A</Color>
+    <Color x:Key="OnErrorContainerDark">#FFDAD6</Color>
+
+    <Color x:Key="SurfaceLight">#F5FBF5</Color>
+    <Color x:Key="OnSurfaceLight">#171D1A</Color>
+    <Color x:Key="OnSurfaceVariantLight">#404943</Color>
+    <Color x:Key="SurfaceContainerLowestLight">#FFFFFF</Color>
+    <Color x:Key="SurfaceContainerLowLight">#EFF5EF</Color>
+    <Color x:Key="SurfaceContainerLight">#E9EFE9</Color>
+    <Color x:Key="SurfaceContainerHighLight">#E4EAE4</Color>
+    <Color x:Key="SurfaceContainerHighestLight">#DEE4DE</Color>
+    <Color x:Key="OutlineLight">#707973</Color>
+    <Color x:Key="OutlineVariantLight">#BFC9C2</Color>
+
+    <Color x:Key="SurfaceDark">#0F1511</Color>
+    <Color x:Key="OnSurfaceDark">#DEE4DE</Color>
+    <Color x:Key="OnSurfaceVariantDark">#BFC9C2</Color>
+    <Color x:Key="SurfaceContainerLowestDark">#0A0F0C</Color>
+    <Color x:Key="SurfaceContainerLowDark">#171D19</Color>
+    <Color x:Key="SurfaceContainerDark">#1B211D</Color>
+    <Color x:Key="SurfaceContainerHighDark">#252B28</Color>
+    <Color x:Key="SurfaceContainerHighestDark">#303632</Color>
+    <Color x:Key="OutlineDark">#8A938C</Color>
+    <Color x:Key="OutlineVariantDark">#404943</Color>
+
+    <Color x:Key="DisabledContainerLight">#1F171D1A</Color>
+    <Color x:Key="DisabledContentLight">#61171D1A</Color>
+    <Color x:Key="DisabledContainerDark">#1FDEE4DE</Color>
+    <Color x:Key="DisabledContentDark">#61DEE4DE</Color>
+
+    <Color x:Key="Scrim">#66000000</Color>
+
+    <Color x:Key="IncomeLight">#1E7B3A</Color>
+    <Color x:Key="IncomeDark">#7EDB8F</Color>
+    <Color x:Key="IncomeContainerLight">#C8F0CF</Color>
+    <Color x:Key="IncomeContainerDark">#1C4D29</Color>
+
+    <Color x:Key="ExpenseLight">#BA1A1A</Color>
+    <Color x:Key="ExpenseDark">#FFB4AB</Color>
+
+    <Color x:Key="WarningLight">#7D5700</Color>
+    <Color x:Key="WarningDark">#F8BD4A</Color>
+    <Color x:Key="WarningContainerLight">#FFDEA6</Color>
+    <Color x:Key="WarningContainerDark">#5E4100</Color>
+
+    <Color x:Key="HeroStartLight">#006C4C</Color>
+    <Color x:Key="HeroEndLight">#2E6B83</Color>
+    <Color x:Key="HeroStartDark">#00513A</Color>
+    <Color x:Key="HeroEndDark">#1D4A5A</Color>
+    <Color x:Key="OnHero">#FFFFFF</Color>
+    <Color x:Key="OnHeroVariant">#D4F2E6</Color>
+    <Color x:Key="HeroChip">#33FFFFFF</Color>
+
+    <Color x:Key="BadgeGreen">#1E8E3E</Color>
+    <Color x:Key="BadgeRed">#C5221F</Color>
+    <Color x:Key="BadgeBlue">#1A73E8</Color>
+    <Color x:Key="BadgeTeal">#2E6B83</Color>
+    <Color x:Key="BadgePurple">#6750A4</Color>
+    <Color x:Key="BadgeAmber">#B06000</Color>
+    <Color x:Key="BadgeGray">#5F6368</Color>
+
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+
+    <LinearGradientBrush x:Key="HeroGradientLight" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="{StaticResource HeroStartLight}" />
+        <GradientStop Offset="1" Color="{StaticResource HeroEndLight}" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="HeroGradientDark" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="{StaticResource HeroStartDark}" />
+        <GradientStop Offset="1" Color="{StaticResource HeroEndDark}" />
+    </LinearGradientBrush>
 </ResourceDictionary>

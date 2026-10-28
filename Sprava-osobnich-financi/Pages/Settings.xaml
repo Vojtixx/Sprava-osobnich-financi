@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Sprava_osobnich_financi.Pages.Settings"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Nastavení"
+    Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="16,24,16,32"
+            MaximumWidthRequest="720"
+            Spacing="12">
+            <VerticalStackLayout Margin="0,0,0,4" Spacing="2">
+                <Label
+                    SemanticProperties.HeadingLevel="Level1"
+                    Style="{StaticResource HeadlineSmall}"
+                    Text="Nastavení" />
+                <Label Style="{StaticResource BodyMedium}" Text="Vzhled aplikace a zabezpečení účtu" />
+            </VerticalStackLayout>
+
+            <Label Style="{StaticResource SectionTitle}" Text="Vzhled" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="44,*" ColumnSpacing="12">
+                        <Border BackgroundColor="{StaticResource BadgePurple}" Style="{StaticResource IconBadge}">
+                            <Image Source="ic_palette.png" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="2"
+                            VerticalOptions="Center">
+                            <Label Style="{StaticResource TitleMedium}" Text="Motiv aplikace" />
+                            <Label Style="{StaticResource BodySmall}" Text="Světlý, tmavý nebo podle nastavení telefonu" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Border Style="{StaticResource SegmentedContainer}">
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="4">
+                            <RadioButton
+                                x:Name="LightThemeRadio"
+                                CheckedChanged="OnThemeCheckedChanged"
+                                Content="Světlý"
+                                GroupName="AppTheme"
+                                Style="{StaticResource SegmentedRadioButton}" />
+                            <RadioButton
+                                x:Name="DarkThemeRadio"
+                                Grid.Column="1"
+                                CheckedChanged="OnThemeCheckedChanged"
+                                Content="Tmavý"
+                                GroupName="AppTheme"
+                                Style="{StaticResource SegmentedRadioButton}" />
+                            <RadioButton
+                                x:Name="SystemThemeRadio"
+                                Grid.Column="2"
+                                CheckedChanged="OnThemeCheckedChanged"
+                                Content="Systém"
+                                GroupName="AppTheme"
+                                Style="{StaticResource SegmentedRadioButton}" />
+                        </Grid>
+                    </Border>
+
+                    <Label
+                        x:Name="ThemeStatusLabel"
+                        Style="{StaticResource HintText}"
+                        Text="Řídí se nastavením telefonu." />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource SectionTitle}" Text="Účet a zabezpečení" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="44,*" ColumnSpacing="12">
+                        <Border BackgroundColor="{StaticResource BadgeTeal}" Style="{StaticResource IconBadge}">
+                            <Image Source="ic_lock.png" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="2"
+                            VerticalOptions="Center">
+                            <Label Style="{StaticResource TitleMedium}" Text="Přihlašovací údaje" />
+                            <Label Style="{StaticResource BodySmall}" Text="Uloží se do JSON souboru v zařízení" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Style="{StaticResource FieldLabel}" Text="Uživatelské jméno" />
+                        <Border x:Name="UsernameField" Style="{StaticResource InputField}">
+                            <Entry
+                                x:Name="UsernameEntry"
+                                ClearButtonVisibility="WhileEditing"
+                                Keyboard="Plain"
+                                MaxLength="30"
+                                Placeholder="např. jan.novak"
+                                ReturnType="Next"
+                                TextChanged="OnUsernameTextChanged" />
+                        </Border>
+                        <Label
+                            x:Name="UsernameErrorLabel"
+                            IsVisible="False"
+                            Style="{StaticResource ErrorText}"
+                            Text="Jméno musí mít alespoň 3 znaky." />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Style="{StaticResource FieldLabel}" Text="Heslo" />
+                        <Border x:Name="PasswordField" Style="{StaticResource InputField}">
+                            <Entry
+                                x:Name="PasswordEntry"
+                                IsPassword="True"
+                                Keyboard="Plain"
+                                Placeholder="Zadej heslo"
+                                ReturnType="Done"
+                                TextChanged="OnPasswordTextChanged" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <Label
+                            Style="{StaticResource BodyLarge}"
+                            Text="Zobrazit heslo"
+                            VerticalOptions="Center" />
+                        <Switch
+                            x:Name="ShowPasswordSwitch"
+                            Grid.Column="1"
+                            Toggled="OnShowPasswordToggled"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <Border Style="{StaticResource CardOutlined}">
+                        <VerticalStackLayout Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <Label Style="{StaticResource LabelLarge}" Text="Síla hesla" />
+                                <Label
+                                    x:Name="PasswordStrengthLabel"
+                                    Grid.Column="1"
+                                    Style="{StaticResource LabelLarge}"
+                                    Text="—" />
+                            </Grid>
+
+                            <ProgressBar
+                                x:Name="PasswordStrengthBar"
+                                Progress="0"
+                                ScaleY="2" />
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    x:Name="CriterionLengthLabel"
+                                    Style="{StaticResource HintText}"
+                                    Text="○  Alespoň 8 znaků" />
+                                <Label
+                                    x:Name="CriterionDigitLabel"
+                                    Style="{StaticResource HintText}"
+                                    Text="○  Obsahuje číslici (0–9)" />
+                                <Label
+                                    x:Name="CriterionLowerLabel"
+                                    Style="{StaticResource HintText}"
+                                    Text="○  Obsahuje malé písmeno (a–z)" />
+                                <Label
+                                    x:Name="CriterionUpperLabel"
+                                    Style="{StaticResource HintText}"
+                                    Text="○  Obsahuje velké písmeno (A–Z)" />
+                                <Label
+                                    x:Name="CriterionSpecialLabel"
+                                    Style="{StaticResource HintText}"
+                                    Text="○  Obsahuje speciální znak (!@#$…)" />
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button
+                            x:Name="LoadCredentialsButton"
+                            Clicked="OnLoadCredentialsClicked"
+                            Style="{StaticResource TonalButton}"
+                            Text="Načíst" />
+                        <Button
+                            x:Name="SaveCredentialsButton"
+                            Grid.Column="1"
+                            Clicked="OnSaveCredentialsClicked"
+                            Style="{StaticResource PrimaryButton}"
+                            Text="Uložit do JSON" />
+                    </Grid>
+
+                    <Button
+                        x:Name="DeleteCredentialsButton"
+                        Clicked="OnDeleteCredentialsClicked"
+                        Style="{StaticResource WarningButton}"
+                        Text="Smazat uložené údaje" />
+
+                    <HorizontalStackLayout Spacing="8">
+                        <ActivityIndicator
+                            x:Name="CredentialsActivityIndicator"
+                            HeightRequest="20"
+                            IsRunning="False"
+                            IsVisible="False"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            x:Name="CredentialsStatusLabel"
+                            Style="{StaticResource HintText}"
+                            Text="Zatím nic neuloženo."
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource SectionTitle}" Text="O aplikaci" />
+
+            <Border Style="{StaticResource Card}">
+                <Grid ColumnDefinitions="44,*" ColumnSpacing="12">
+                    <Border BackgroundColor="{StaticResource BadgeGreen}" Style="{StaticResource IconBadge}">
+                        <Image Source="ic_wallet.png" />
+                    </Border>
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="2"
+                        VerticalOptions="Center">
+                        <Label Style="{StaticResource TitleMedium}" Text="Správa osobních financí" />
+                        <Label Style="{StaticResource BodySmall}" Text="Verze 1.0 · Vojtěch Říha" />
+                        <Label Style="{StaticResource BodySmall}" Text="Domácí úkol PRG4 – .NET MAUI (Android)" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Sprava_osobnich_financi.Pages.ExchangeRatesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Kurzy"
+    Shell.NavBarIsVisible="False">
+    <Grid
+        x:Name="RatesLayout"
+        Padding="16,24,16,16"
+        ColumnDefinitions="*,2*"
+        ColumnSpacing="16"
+        RowDefinitions="Auto,*"
+        RowSpacing="12">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="AdaptiveStates">
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="InfoPanel" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="InfoPanel" Property="Grid.RowSpan" Value="1" />
+                            <Setter TargetName="WebPanel" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="WebPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="WebPanel" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="WebPanel" Property="Grid.RowSpan" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="600" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="InfoPanel" Property="Grid.ColumnSpan" Value="1" />
+                            <Setter TargetName="InfoPanel" Property="Grid.RowSpan" Value="2" />
+                            <Setter TargetName="WebPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="WebPanel" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="WebPanel" Property="Grid.ColumnSpan" Value="1" />
+                            <Setter TargetName="WebPanel" Property="Grid.RowSpan" Value="2" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </VisualStateManager.VisualStateGroups>
+
+        <ScrollView x:Name="InfoPanel" Grid.ColumnSpan="2">
+            <VerticalStackLayout Spacing="12">
+                <VerticalStackLayout Spacing="2">
+                    <Label
+                        SemanticProperties.HeadingLevel="Level1"
+                        Style="{StaticResource HeadlineSmall}"
+                        Text="Kurzy měn" />
+                    <Label Style="{StaticResource BodyMedium}" Text="Oficiální kurzovní lístek přímo v aplikaci" />
+                </VerticalStackLayout>
+
+                <Border Style="{StaticResource Card}">
+                    <Grid
+                        ColumnDefinitions="44,*"
+                        ColumnSpacing="12"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="12">
+                        <Border BackgroundColor="{StaticResource BadgeBlue}" Style="{StaticResource IconBadge}">
+                            <Image Source="ic_globe.png" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="2"
+                            VerticalOptions="Center">
+                            <Label Style="{StaticResource TitleMedium}" Text="Kurzy devizového trhu – ČNB" />
+                            <Label Style="{StaticResource BodySmall}" Text="www.cnb.cz" />
+                        </VerticalStackLayout>
+                        <Label
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource BodyMedium}"
+                            Text="Česká národní banka každý pracovní den odpoledne vyhlašuje kurzy cizích měn vůči koruně. Hodí se pro přepočet plateb v cizí měně, třeba při nákupu v zahraničí nebo na dovolené." />
+                    </Grid>
+                </Border>
+
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <Border Style="{StaticResource StatusChip}">
+                        <Label Style="{StaticResource StatusChipText}" Text="🔒 Povolena jen doména cnb.cz" />
+                    </Border>
+                    <Button
+                        x:Name="ReloadButton"
+                        Grid.Column="1"
+                        Clicked="OnReloadClicked"
+                        Style="{StaticResource TextButton}"
+                        Text="↻ Obnovit" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border
+            x:Name="WebPanel"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Padding="0"
+            Style="{StaticResource CardOutlined}">
+            <Grid>
+                <WebView
+                    x:Name="RatesWebView"
+                    Navigated="OnWebViewNavigated"
+                    Navigating="OnWebViewNavigating"
+                    Source="https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/" />
+
+                <VerticalStackLayout
+                    x:Name="LoadingPanel"
+                    HorizontalOptions="Center"
+                    InputTransparent="True"
+                    Spacing="12"
+                    VerticalOptions="Center">
+                    <ActivityIndicator
+                        x:Name="WebLoadingIndicator"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        IsRunning="True"
+                        WidthRequest="40" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BodySmall}"
+                        Text="Načítám kurzovní lístek…" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

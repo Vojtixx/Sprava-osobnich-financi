@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Sprava_osobnich_financi.Pages.AddTransactionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Nová transakce"
+    Shell.TabBarIsVisible="False">
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView>
+            <Grid
+                x:Name="FormLayout"
+                Padding="16"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="16"
+                MaximumWidthRequest="960"
+                RowDefinitions="Auto,Auto,Auto"
+                RowSpacing="16">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="AdaptiveStates">
+                            <VisualState x:Name="Narrow">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter TargetName="BasicInfoPanel" Property="Grid.ColumnSpan" Value="2" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.Row" Value="2" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.Column" Value="0" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.ColumnSpan" Value="2" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Wide">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="600" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter TargetName="BasicInfoPanel" Property="Grid.ColumnSpan" Value="1" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.Row" Value="1" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.Column" Value="1" />
+                                    <Setter TargetName="DetailsPanel" Property="Grid.ColumnSpan" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+                <Grid
+                    Grid.ColumnSpan="2"
+                    ColumnDefinitions="44,*"
+                    ColumnSpacing="12">
+                    <Border BackgroundColor="{StaticResource BadgeGreen}" Style="{StaticResource IconBadge}">
+                        <Image Source="ic_add.png" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        Style="{StaticResource BodyMedium}"
+                        Text="Vyplň údaje o příjmu nebo výdaji. Pole označená * jsou povinná."
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <VerticalStackLayout
+                    x:Name="BasicInfoPanel"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Spacing="16">
+                    <Border Style="{StaticResource SegmentedContainer}">
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                            <RadioButton
+                                x:Name="ExpenseRadio"
+                                CheckedChanged="OnTypeCheckedChanged"
+                                Content="Výdaj"
+                                GroupName="TransactionType"
+                                IsChecked="True"
+                                Style="{StaticResource SegmentedRadioButton}" />
+                            <RadioButton
+                                x:Name="IncomeRadio"
+                                Grid.Column="1"
+                                CheckedChanged="OnTypeCheckedChanged"
+                                Content="Příjem"
+                                GroupName="TransactionType"
+                                Style="{StaticResource SegmentedRadioButton}" />
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="16">
+                            <Label Style="{StaticResource TitleMedium}" Text="Základní údaje" />
+
+                            <VerticalStackLayout Spacing="6">
+                                <Label Style="{StaticResource FieldLabel}" Text="Název položky *" />
+                                <Border x:Name="NameField" Style="{StaticResource InputField}">
+                                    <Entry
+                                        x:Name="NameEntry"
+                                        ClearButtonVisibility="WhileEditing"
+                                        MaxLength="40"
+                                        Placeholder="např. Nákup potravin"
+                                        ReturnType="Next"
+                                        TextChanged="OnNameTextChanged" />
+                                </Border>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <Label
+                                        x:Name="NameErrorLabel"
+                                        IsVisible="False"
+                                        Style="{StaticResource ErrorText}"
+                                        Text="Zadej název (alespoň 2 znaky)." />
+                                    <Label
+                                        x:Name="NameCounterLabel"
+                                        Grid.Column="1"
+                                        Style="{StaticResource HintText}"
+                                        Text="0 / 40" />
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="6">
+                                <Label Style="{StaticResource FieldLabel}" Text="Částka *" />
+                                <Border x:Name="AmountField" Style="{StaticResource InputField}">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                        <Entry
+                                            x:Name="AmountEntry"
+                                            Keyboard="Numeric"
+                                            Placeholder="0"
+                                            ReturnType="Done"
+                                            TextChanged="OnAmountTextChanged" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Style="{StaticResource BodyLarge}"
+                                            Text="Kč"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+                                </Border>
+                                <Label
+                                    x:Name="AmountErrorLabel"
+                                    IsVisible="False"
+                                    Style="{StaticResource ErrorText}"
+                                    Text="Zadej kladné číslo, např. 1250." />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="6">
+                                <Label Style="{StaticResource FieldLabel}" Text="Kategorie" />
+                                <Border x:Name="CategoryField" Style="{StaticResource InputField}">
+                                    <Picker
+                                        x:Name="CategoryPicker"
+                                        Title="Vyber kategorii"
+                                        SelectedIndexChanged="OnCategoryChanged">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Potraviny</x:String>
+                                                <x:String>Restaurace</x:String>
+                                                <x:String>Doprava</x:String>
+                                                <x:String>Bydlení</x:String>
+                                                <x:String>Zábava</x:String>
+                                                <x:String>Energie</x:String>
+                                                <x:String>Výplata</x:String>
+                                                <x:String>Ostatní</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </Border>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    x:Name="DetailsPanel"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Spacing="16">
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Style="{StaticResource TitleMedium}" Text="Důležitost" />
+                                    <Label
+                                        x:Name="PriorityDescriptionLabel"
+                                        Style="{StaticResource BodySmall}"
+                                        Text="Běžný výdaj" />
+                                </VerticalStackLayout>
+                                <Border Grid.Column="1" Style="{StaticResource StatusChip}">
+                                    <Label
+                                        x:Name="PriorityValueLabel"
+                                        Style="{StaticResource StatusChipText}"
+                                        Text="3 / 5" />
+                                </Border>
+                            </Grid>
+
+                            <Slider
+                                x:Name="PrioritySlider"
+                                Maximum="5"
+                                Minimum="1"
+                                ValueChanged="OnPrioritySliderValueChanged"
+                                Value="3" />
+
+                            <Grid ColumnDefinitions="*,*">
+                                <Label Style="{StaticResource HintText}" Text="1 – zbytné" />
+                                <Label
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource HintText}"
+                                    Text="5 – nezbytné" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Style="{StaticResource TitleMedium}" Text="Doplňkové volby" />
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                                    <Label Style="{StaticResource BodyLarge}" Text="Pravidelná platba" />
+                                    <Label
+                                        x:Name="RecurringHintLabel"
+                                        Style="{StaticResource BodySmall}"
+                                        Text="Opakuje se každý měsíc" />
+                                </VerticalStackLayout>
+                                <Switch
+                                    x:Name="RecurringSwitch"
+                                    Grid.Column="1"
+                                    Toggled="OnRecurringToggled"
+                                    VerticalOptions="Center" />
+                            </Grid>
+
+                            <BoxView Style="{StaticResource Divider}" />
+
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                                <CheckBox
+                                    x:Name="SimulateErrorCheckBox"
+                                    CheckedChanged="OnSimulateErrorCheckedChanged"
+                                    VerticalOptions="Center" />
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+                                    <Label Style="{StaticResource BodyLarge}" Text="Simulovat chybu při ukládání" />
+                                    <Label Style="{StaticResource BodySmall}" Text="Pro otestování neúspěšného odeslání formuláře" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+        <Border Grid.Row="1" Style="{StaticResource BottomBar}">
+            <Grid
+                ColumnDefinitions="*,2*"
+                ColumnSpacing="12"
+                MaximumWidthRequest="640">
+                <Button
+                    x:Name="CancelButton"
+                    Clicked="OnCancelClicked"
+                    Style="{StaticResource OutlinedButton}"
+                    Text="Zrušit" />
+                <Button
+                    x:Name="SaveButton"
+                    Grid.Column="1"
+                    Clicked="OnSaveClicked"
+                    Style="{StaticResource PrimaryButton}"
+                    Text="Uložit transakci" />
+            </Grid>
+        </Border>
+
+        <Grid
+            x:Name="SavingOverlay"
+            Grid.RowSpan="2"
+            BackgroundColor="{StaticResource Scrim}"
+            IsVisible="False">
+            <Border Style="{StaticResource OverlayCard}">
+                <VerticalStackLayout Spacing="16">
+                    <ActivityIndicator
+                        x:Name="SavingIndicator"
+                        HeightRequest="48"
+                        HorizontalOptions="Center"
+                        IsRunning="False"
+                        WidthRequest="48" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource TitleMedium}"
+                        Text="Ukládám transakci…" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BodySmall}"
+                        Text="Chvilku strpení" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

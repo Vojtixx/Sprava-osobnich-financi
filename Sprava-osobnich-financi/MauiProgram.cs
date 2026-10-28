@@ -15,11 +15,26 @@ namespace Sprava_osobnich_financi
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            RemoveNativeInputUnderline();
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+
+        private static void RemoveNativeInputUnderline()
+        {
+#if ANDROID
+            var transparent = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+                handler.PlatformView.BackgroundTintList = transparent);
+
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+                handler.PlatformView.BackgroundTintList = transparent);
+#endif
         }
     }
 }
