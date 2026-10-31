@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Nová transakce"
     Shell.TabBarIsVisible="False">
+
     <Grid RowDefinitions="*,Auto">
+
         <ScrollView>
             <Grid
                 x:Name="FormLayout"
@@ -15,6 +17,7 @@
                 MaximumWidthRequest="960"
                 RowDefinitions="Auto,Auto,Auto"
                 RowSpacing="16">
+
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="AdaptiveStates">
@@ -63,11 +66,11 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Spacing="16">
+
                     <Border Style="{StaticResource SegmentedContainer}">
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
                             <RadioButton
                                 x:Name="ExpenseRadio"
-                                CheckedChanged="OnTypeCheckedChanged"
                                 Content="Výdaj"
                                 GroupName="TransactionType"
                                 IsChecked="True"
@@ -75,7 +78,6 @@
                             <RadioButton
                                 x:Name="IncomeRadio"
                                 Grid.Column="1"
-                                CheckedChanged="OnTypeCheckedChanged"
                                 Content="Příjem"
                                 GroupName="TransactionType"
                                 Style="{StaticResource SegmentedRadioButton}" />
@@ -140,8 +142,7 @@
                                 <Border x:Name="CategoryField" Style="{StaticResource InputField}">
                                     <Picker
                                         x:Name="CategoryPicker"
-                                        Title="Vyber kategorii"
-                                        SelectedIndexChanged="OnCategoryChanged">
+                                        Title="Vyber kategorii">
                                         <Picker.ItemsSource>
                                             <x:Array Type="{x:Type x:String}">
                                                 <x:String>Potraviny</x:String>
@@ -166,6 +167,7 @@
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
                     Spacing="16">
+
                     <Border Style="{StaticResource Card}">
                         <VerticalStackLayout Spacing="8">
                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
@@ -212,7 +214,7 @@
                                     <Label
                                         x:Name="RecurringHintLabel"
                                         Style="{StaticResource BodySmall}"
-                                        Text="Opakuje se každý měsíc" />
+                                        Text="Jednorázová platba" />
                                 </VerticalStackLayout>
                                 <Switch
                                     x:Name="RecurringSwitch"
@@ -226,7 +228,6 @@
                             <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
                                 <CheckBox
                                     x:Name="SimulateErrorCheckBox"
-                                    CheckedChanged="OnSimulateErrorCheckedChanged"
                                     VerticalOptions="Center" />
                                 <VerticalStackLayout
                                     Grid.Column="1"
@@ -286,4 +287,5 @@
             </Border>
         </Grid>
     </Grid>
+
 </ContentPage>

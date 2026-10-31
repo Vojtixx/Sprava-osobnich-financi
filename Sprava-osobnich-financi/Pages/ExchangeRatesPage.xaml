@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Kurzy"
     Shell.NavBarIsVisible="False">
+
     <Grid
         x:Name="RatesLayout"
         Padding="16,24,16,16"
@@ -12,6 +13,7 @@
         ColumnSpacing="16"
         RowDefinitions="Auto,*"
         RowSpacing="12">
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="AdaptiveStates">
@@ -126,4 +128,5 @@
             </Grid>
         </Border>
     </Grid>
+
 </ContentPage>

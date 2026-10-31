@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Barvy nativního Android motivu (stavová lišta při startu, akcent nativních dialogů).
+         Za běhu stavovou lištu přebarvuje Services/ThemeService.cs podle zvoleného motivu. -->
     <color name="colorPrimary">#006C4C</color>
     <color name="colorPrimaryDark">#00513A</color>
     <color name="colorAccent">#006C4C</color>

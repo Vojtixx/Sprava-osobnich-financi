@@ -7,6 +7,7 @@
     xmlns:services="clr-namespace:Sprava_osobnich_financi.Services"
     Title="Přehled"
     Shell.NavBarIsVisible="False">
+
     <Grid>
         <ScrollView>
             <Grid
@@ -17,6 +18,7 @@
                 MaximumWidthRequest="1100"
                 RowDefinitions="Auto,Auto,Auto"
                 RowSpacing="16">
+
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="AdaptiveStates">
@@ -85,10 +87,11 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Spacing="16">
+
                     <Border Style="{StaticResource HeroCard}">
                         <Grid
                             ColumnDefinitions="*,Auto"
-                            RowDefinitions="Auto,Auto,Auto"
+                            RowDefinitions="Auto,Auto"
                             RowSpacing="4">
                             <Label Style="{StaticResource HeroLabel}" Text="Celkový zůstatek" />
                             <Label
@@ -104,21 +107,6 @@
                                 VerticalOptions="Start">
                                 <Image Source="ic_wallet.png" />
                             </Border>
-                            <Border
-                                Grid.Row="2"
-                                Grid.ColumnSpan="2"
-                                Margin="0,8,0,0"
-                                Padding="10,4"
-                                BackgroundColor="{StaticResource HeroChip}"
-                                HorizontalOptions="Start"
-                                StrokeShape="RoundRectangle 8">
-                                <Label
-                                    x:Name="BalanceTrendLabel"
-                                    FontFamily="OpenSansSemibold"
-                                    FontSize="12"
-                                    Text="↑ +4,2 % oproti minulému měsíci"
-                                    TextColor="{StaticResource OnHero}" />
-                            </Border>
                         </Grid>
                     </Border>
 
@@ -127,6 +115,7 @@
                         ColumnSpacing="12"
                         RowDefinitions="Auto,Auto"
                         RowSpacing="12">
+
                         <Border Style="{StaticResource Card}">
                             <Grid
                                 ColumnDefinitions="44,*"
@@ -360,6 +349,7 @@
                             VerticalOptions="Center" />
                     </Grid>
 
+                    <!-- Seznam pod sebou (BindableLayout) -->
                     <VerticalStackLayout
                         x:Name="TransactionsList"
                         BindableLayout.ItemsSource="{x:Static services:TransactionStore.Transactions}"
@@ -439,4 +429,5 @@
             Text="+  Nová transakce"
             VerticalOptions="End" />
     </Grid>
+
 </ContentPage>

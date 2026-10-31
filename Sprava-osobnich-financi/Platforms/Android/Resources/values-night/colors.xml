@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Varianta pro tmavý režim (Android ji vybere automaticky) -->
     <color name="colorPrimary">#6CDBAC</color>
     <color name="colorPrimaryDark">#0F1511</color>
     <color name="colorAccent">#6CDBAC</color>

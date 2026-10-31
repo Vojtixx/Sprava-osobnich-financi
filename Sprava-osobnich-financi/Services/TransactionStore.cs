@@ -3,6 +3,7 @@ using Sprava_osobnich_financi.Models;
 
 namespace Sprava_osobnich_financi.Services
 {
+    // Seznam transakcí. Dashboard ho zobrazuje (BindableLayout) a formulář do něj může přidávat.
     public static class TransactionStore
     {
         public static ObservableCollection<Transaction> Transactions { get; } = new()

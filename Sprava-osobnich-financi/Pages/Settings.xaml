@@ -5,11 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Nastavení"
     Shell.NavBarIsVisible="False">
+
     <ScrollView>
         <VerticalStackLayout
             Padding="16,24,16,32"
             MaximumWidthRequest="720"
             Spacing="12">
+
             <VerticalStackLayout Margin="0,0,0,4" Spacing="2">
                 <Label
                     SemanticProperties.HeadingLevel="Level1"
@@ -92,7 +94,7 @@
                                 ClearButtonVisibility="WhileEditing"
                                 Keyboard="Plain"
                                 MaxLength="30"
-                                Placeholder="např. jan.novak"
+                                Placeholder="např. Jan Novák"
                                 ReturnType="Next"
                                 TextChanged="OnUsernameTextChanged" />
                         </Border>
@@ -219,10 +221,11 @@
                         VerticalOptions="Center">
                         <Label Style="{StaticResource TitleMedium}" Text="Správa osobních financí" />
                         <Label Style="{StaticResource BodySmall}" Text="Verze 1.0 · Vojtěch Říha" />
-                        <Label Style="{StaticResource BodySmall}" Text="Domácí úkol PRG4 – .NET MAUI (Android)" />
+                        <Label Style="{StaticResource BodySmall}" Text="Domácí úkol MOB – .NET MAUI (Android)" />
                     </VerticalStackLayout>
                 </Grid>
             </Border>
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

@@ -10,7 +10,7 @@ namespace Sprava_osobnich_financi.Models
 
         public string Category { get; set; } = "Ostatní";
 
-        public decimal Amount { get; set; }
+        public int Amount { get; set; }
 
         public bool IsIncome { get; set; }
 
@@ -20,7 +20,13 @@ namespace Sprava_osobnich_financi.Models
 
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public string AmountText => $"{(IsIncome ? "+" : "−")}{Amount.ToString("N0", Czech)} Kč";
+        // Pomocné vlastnosti jen pro zobrazení v UI (bindingy v DashboardPage.xaml)
+
+        public static bool SkrytCastky { get; set; }
+
+        public string AmountText => SkrytCastky
+            ? $"{(IsIncome ? "+" : "−")}***** Kč"
+            : $"{(IsIncome ? "+" : "−")}{Amount.ToString("N0", Czech)} Kč";
 
         public string Subtitle => $"{Category} · {Date.ToString("d. M.", Czech)}";
 

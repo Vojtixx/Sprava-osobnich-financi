@@ -8,26 +8,23 @@ namespace Sprava_osobnich_financi
         {
             InitializeComponent();
 
+            // Motiv vybraný v Nastavení (uložený v Preferences) se použije hned po spuštění
             ThemeService.ApplySavedTheme();
 
+            // Při změně motivu (i systémového, když je zvoleno "Podle systému") přebarvíme systémové lišty
             RequestedThemeChanged += (_, _) => MainThread.BeginInvokeOnMainThread(ThemeService.UpdateSystemBars);
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
-        }
+            var window = new Window(new AppShell());
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-            ThemeService.UpdateSystemBars();
-        }
+            // Systémové lišty přebarvíme při každém vytvoření i obnovení okna –
+            // i když se aplikace po tlačítku Zpět otevře znovu (nové okno ve stejném procesu)
+            window.Created += (_, _) => ThemeService.UpdateSystemBars();
+            window.Resumed += (_, _) => ThemeService.UpdateSystemBars();
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            ThemeService.UpdateSystemBars();
+            return window;
         }
     }
 }

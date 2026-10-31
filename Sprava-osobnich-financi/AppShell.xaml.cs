@@ -8,6 +8,8 @@ namespace Sprava_osobnich_financi
         {
             InitializeComponent();
 
+            // Registrace tras pro stránky, které nejsou v TabBaru.
+            // Otevírají se relativně: await Shell.Current.GoToAsync(nameof(AddTransactionPage));
             Routing.RegisterRoute(nameof(AddTransactionPage), typeof(AddTransactionPage));
         }
     }

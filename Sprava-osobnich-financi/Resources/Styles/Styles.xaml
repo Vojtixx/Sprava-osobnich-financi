@@ -3,6 +3,19 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--
+        Designový systém aplikace (Material Design 3).
+        1) Implicitní styly  – platí automaticky pro všechny prvky daného typu.
+        2) Pojmenované styly – použití přes Style="{StaticResource NazevStylu}".
+        Pojmenované styly dědí (BasedOn) z Base... stylů, protože explicitní styl
+        v MAUI nahrazuje implicitní.
+    -->
+
+    <!-- =====================================================================
+         TYPOGRAFIE (Label)
+         ===================================================================== -->
+
     <Style x:Key="BaseLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceLight}, Dark={StaticResource OnSurfaceDark}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -73,6 +86,7 @@
         <Setter Property="FontSize" Value="12" />
     </Style>
 
+    <!-- Nadpis sekce (např. "Vzhled", "Poslední transakce") -->
     <Style x:Key="SectionTitle" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansSemibold" />
         <Setter Property="FontSize" Value="14" />
@@ -80,6 +94,7 @@
         <Setter Property="Margin" Value="4,8,4,0" />
     </Style>
 
+    <!-- Popisek nad vstupním polem -->
     <Style x:Key="FieldLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansSemibold" />
         <Setter Property="FontSize" Value="12" />
@@ -87,24 +102,28 @@
         <Setter Property="Margin" Value="4,0" />
     </Style>
 
+    <!-- Chybová hláška pod polem (validace) -->
     <Style x:Key="ErrorText" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ErrorLight}, Dark={StaticResource ErrorDark}}" />
         <Setter Property="Margin" Value="4,0" />
     </Style>
 
+    <!-- Splněná podmínka / úspěch -->
     <Style x:Key="SuccessText" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource IncomeLight}, Dark={StaticResource IncomeDark}}" />
         <Setter Property="Margin" Value="4,0" />
     </Style>
 
+    <!-- Pomocný šedý text (nesplněná podmínka, nápověda) -->
     <Style x:Key="HintText" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceVariantLight}, Dark={StaticResource OnSurfaceVariantDark}}" />
         <Setter Property="Margin" Value="4,0" />
     </Style>
 
+    <!-- Hlavní karta se zůstatkem -->
     <Style x:Key="HeroLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource OnHeroVariant}" />
     </Style>
@@ -115,6 +134,7 @@
         <Setter Property="TextColor" Value="{StaticResource OnHero}" />
     </Style>
 
+    <!-- Částky v seznamu a kartách -->
     <Style x:Key="AmountText" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansSemibold" />
         <Setter Property="FontSize" Value="15" />
@@ -128,12 +148,17 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource ExpenseLight}, Dark={StaticResource ExpenseDark}}" />
     </Style>
 
+    <!-- =====================================================================
+         KARTY A KONTEJNERY (Border – zákaz starého Frame)
+         ===================================================================== -->
+
     <Style TargetType="Border">
         <Setter Property="Stroke" Value="Transparent" />
         <Setter Property="StrokeThickness" Value="0" />
         <Setter Property="StrokeShape" Value="RoundRectangle 16" />
     </Style>
 
+    <!-- Základní karta (Material 3 "Filled card") -->
     <Style x:Key="Card" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceContainerLowLight}, Dark={StaticResource SurfaceContainerLowDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -142,6 +167,7 @@
         <Setter Property="Padding" Value="16" />
     </Style>
 
+    <!-- Karta s obrysem (Material 3 "Outlined card") -->
     <Style x:Key="CardOutlined" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource OutlineVariantLight}, Dark={StaticResource OutlineVariantDark}}" />
@@ -150,6 +176,7 @@
         <Setter Property="Padding" Value="16" />
     </Style>
 
+    <!-- Výrazná karta s přechodem (zůstatek na Dashboardu) -->
     <Style x:Key="HeroCard" TargetType="Border">
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource HeroGradientLight}, Dark={StaticResource HeroGradientDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -158,6 +185,7 @@
         <Setter Property="Padding" Value="20" />
     </Style>
 
+    <!-- Řádek seznamu (transakce) -->
     <Style x:Key="ListItemCard" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceContainerLowLight}, Dark={StaticResource SurfaceContainerLowDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -166,6 +194,7 @@
         <Setter Property="Padding" Value="12" />
     </Style>
 
+    <!-- Barevný čtverec s ikonou (barvu pozadí nastav přes BackgroundColor) -->
     <Style x:Key="IconBadge" TargetType="Border">
         <Setter Property="WidthRequest" Value="44" />
         <Setter Property="HeightRequest" Value="44" />
@@ -184,6 +213,7 @@
         <Setter Property="StrokeShape" Value="RoundRectangle 12" />
     </Style>
 
+    <!-- Rámeček vstupního pole (Material 3 "Outlined text field") -->
     <Style x:Key="InputField" TargetType="Border">
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource OutlineLight}, Dark={StaticResource OutlineDark}}" />
@@ -193,11 +223,13 @@
         <Setter Property="MinimumHeightRequest" Value="56" />
     </Style>
 
+    <!-- Stejné pole v chybovém stavu – v kódu: NameField.Style = (Style)Application.Current.Resources["InputFieldError"]; -->
     <Style x:Key="InputFieldError" BasedOn="{StaticResource InputField}" TargetType="Border">
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource ErrorLight}, Dark={StaticResource ErrorDark}}" />
         <Setter Property="StrokeThickness" Value="2" />
     </Style>
 
+    <!-- Malý štítek (např. "Pravidelná", "68 %") -->
     <Style x:Key="StatusChip" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SecondaryContainerLight}, Dark={StaticResource SecondaryContainerDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -214,6 +246,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSecondaryContainerLight}, Dark={StaticResource OnSecondaryContainerDark}}" />
     </Style>
 
+    <!-- Spodní lišta s tlačítky formuláře -->
     <Style x:Key="BottomBar" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceContainerLight}, Dark={StaticResource SurfaceContainerDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -222,6 +255,7 @@
         <Setter Property="Padding" Value="16,12" />
     </Style>
 
+    <!-- Karta uprostřed překryvu (ukládání) -->
     <Style x:Key="OverlayCard" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceContainerHighLight}, Dark={StaticResource SurfaceContainerHighDark}}" />
         <Setter Property="Stroke" Value="Transparent" />
@@ -232,6 +266,7 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
+    <!-- Obal segmentového přepínače (Světlý / Tmavý / Systém) -->
     <Style x:Key="SegmentedContainer" TargetType="Border">
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource OutlineLight}, Dark={StaticResource OutlineDark}}" />
@@ -240,12 +275,18 @@
         <Setter Property="Padding" Value="4" />
     </Style>
 
+    <!-- Oddělovací čára -->
     <Style x:Key="Divider" TargetType="BoxView">
         <Setter Property="HeightRequest" Value="1" />
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource OutlineVariantLight}, Dark={StaticResource OutlineVariantDark}}" />
         <Setter Property="HorizontalOptions" Value="Fill" />
     </Style>
 
+    <!-- =====================================================================
+         TLAČÍTKA
+         ===================================================================== -->
+
+    <!-- Primární (Material 3 "Filled button") – zároveň výchozí vzhled všech Buttonů -->
     <Style x:Key="PrimaryButton" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnPrimaryLight}, Dark={StaticResource OnPrimaryDark}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
@@ -274,16 +315,19 @@
 
     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button" />
 
+    <!-- Tonální (méně výrazné, sekundární akce) -->
     <Style x:Key="TonalButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSecondaryContainerLight}, Dark={StaticResource OnSecondaryContainerDark}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SecondaryContainerLight}, Dark={StaticResource SecondaryContainerDark}}" />
     </Style>
 
+    <!-- Varovné tlačítko (mazání, nevratné akce) -->
     <Style x:Key="WarningButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnErrorLight}, Dark={StaticResource OnErrorDark}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource ErrorLight}, Dark={StaticResource ErrorDark}}" />
     </Style>
 
+    <!-- Obrysové tlačítko (Zrušit) -->
     <Style x:Key="OutlinedButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -305,6 +349,7 @@
         </Setter>
     </Style>
 
+    <!-- Textové tlačítko (bez pozadí) -->
     <Style x:Key="TextButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -325,6 +370,7 @@
         </Setter>
     </Style>
 
+    <!-- Filtrovací čip (nevybraný) -->
     <Style x:Key="ChipButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceVariantLight}, Dark={StaticResource OnSurfaceVariantDark}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -349,12 +395,14 @@
         </Setter>
     </Style>
 
+    <!-- Filtrovací čip (vybraný) – v kódu stačí přepnout Style mezi ChipButton a ChipButtonSelected -->
     <Style x:Key="ChipButtonSelected" BasedOn="{StaticResource ChipButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSecondaryContainerLight}, Dark={StaticResource OnSecondaryContainerDark}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SecondaryContainerLight}, Dark={StaticResource SecondaryContainerDark}}" />
         <Setter Property="BorderWidth" Value="0" />
     </Style>
 
+    <!-- Plovoucí tlačítko (Material 3 "Extended FAB") -->
     <Style x:Key="FabButton" BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnPrimaryContainerLight}, Dark={StaticResource OnPrimaryContainerDark}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryContainerLight}, Dark={StaticResource PrimaryContainerDark}}" />
@@ -370,6 +418,11 @@
                 Offset="0,3" />
         </Setter>
     </Style>
+
+    <!-- =====================================================================
+         SEGMENTOVÝ PŘEPÍNAČ (RadioButton s vlastní šablonou)
+         Použití: <RadioButton Style="{StaticResource SegmentedRadioButton}" Content="Světlý" GroupName="..." />
+         ===================================================================== -->
 
     <ControlTemplate x:Key="SegmentedRadioTemplate" x:DataType="RadioButton">
         <Border
@@ -426,6 +479,10 @@
     <Style x:Key="SegmentedRadioButton" TargetType="RadioButton">
         <Setter Property="ControlTemplate" Value="{StaticResource SegmentedRadioTemplate}" />
     </Style>
+
+    <!-- =====================================================================
+         VSTUPNÍ PRVKY (implicitní styly)
+         ===================================================================== -->
 
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceLight}, Dark={StaticResource OnSurfaceDark}}" />
@@ -538,6 +595,10 @@
         <Setter Property="FontSize" Value="14" />
     </Style>
 
+    <!-- =====================================================================
+         STAVOVÉ INDIKÁTORY
+         ===================================================================== -->
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
     </Style>
@@ -549,6 +610,10 @@
     <Style TargetType="RefreshView">
         <Setter Property="RefreshColor" Value="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
     </Style>
+
+    <!-- =====================================================================
+         STRÁNKY A SHELL
+         ===================================================================== -->
 
     <Style ApplyToDerivedTypes="True" TargetType="Page">
         <Setter Property="Padding" Value="0" />
@@ -573,4 +638,5 @@
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceLight}, Dark={StaticResource OnSurfaceDark}}" />
         <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource OnSurfaceLight}, Dark={StaticResource OnSurfaceDark}}" />
     </Style>
+
 </ResourceDictionary>

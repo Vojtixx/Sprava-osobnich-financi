@@ -1,5 +1,6 @@
 namespace Sprava_osobnich_financi.Models
 {
+    // Data pro UserCredentials.json
     public class UserCredentials
     {
         public string Username { get; set; } = string.Empty;

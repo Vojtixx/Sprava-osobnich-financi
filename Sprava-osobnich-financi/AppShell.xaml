@@ -6,6 +6,13 @@
     xmlns:pages="clr-namespace:Sprava_osobnich_financi.Pages"
     Title="Správa financí"
     Shell.FlyoutBehavior="Disabled">
+
+    <!--
+        Spodní navigační lišta (Material 3 "Navigation bar") se třemi záložkami.
+        Route slouží pro absolutní navigaci, např. Shell.Current.GoToAsync("///SettingsTab").
+        Formulář AddTransactionPage tu záměrně není – registruje se v AppShell.xaml.cs
+        a otevírá se z Dashboardu přes URI.
+    -->
     <TabBar>
         <ShellContent
             Title="Přehled"
@@ -25,4 +32,5 @@
             Route="SettingsTab"
             ContentTemplate="{DataTemplate pages:Settings}" />
     </TabBar>
+
 </Shell>

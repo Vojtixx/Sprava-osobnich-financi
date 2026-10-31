@@ -24,6 +24,8 @@ namespace Sprava_osobnich_financi
             return builder.Build();
         }
 
+        // Android kreslí pod Entry a Picker vlastní podtržení. Rámeček pole (Material 3 "outlined text field")
+        // kreslí Border se stylem InputField, takže nativní podtržení schováme.
         private static void RemoveNativeInputUnderline()
         {
 #if ANDROID
